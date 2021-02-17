@@ -1,0 +1,17 @@
+test_00: &SysDefault
+  metrics:
+    [{name: 'cpu_busy',
+      min_val: 0,
+      max_val: 100},
+     {name: 'mem_free',
+      min_val: 0,
+      max_val: 1000},
+     {name: 'disk_free',
+      min_val: 0,
+      max_val: 10000}]
+
+test_01:
+  <<: *SysDefault
+
+test_02:
+  <<: *SysDefault
