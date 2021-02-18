@@ -15,7 +15,7 @@ class SystemDataGenerator:
             self.metrics.append(curr_metric)
 
     def set_metrics_from_config(self, config_path=None, config_file=None):
-        cfg = get_config(config_file, config_path)
+        cfg = get_config(config_path, config_file)
         metric_list = cfg[self.name]['metrics']
         self.set_metrics(metric_list)
 
