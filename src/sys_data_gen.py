@@ -1,6 +1,7 @@
 from metric import Metric
 from random import uniform
 from datetime import datetime
+from time import mktime
 from utils import get_config, dt_to_str
 
 
@@ -22,17 +23,18 @@ class SystemDataGenerator:
     def generate_metric_value(self, metric):
         # TODO: use better generation, normal dist maybe
         value = uniform(metric.min_val, metric.max_val)
-        return {'metric': metric.name, 'value': value}
+        return {metric.name: value}
 
     def generate_all_metrics(self):
-        curr_metric_values = []
+        curr_metric_values = {}
         for metric in self.metrics:
-            curr_metric_values.append(self.generate_metric_value(metric))
+            curr_metric_values.update(self.generate_metric_value(metric))
 
         return curr_metric_values
 
     def generate_record(self):
         metrics = self.generate_all_metrics()
-        time = dt_to_str(datetime.now())
-        return {'name': self.name, 'date_time': time, 'metrics': metrics}
-
+        time_now = datetime.now()
+        time_utc = int(mktime(time_now.timetuple())*1000)        
+        metrics.update({'name': self.name, 'time': time_utc})
+        return metrics
