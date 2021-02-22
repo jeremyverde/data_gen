@@ -1,12 +1,15 @@
-from time import sleep
+from time import sleep, mktime
+from datetime import datetime
 from json import dumps
 from kafka import KafkaProducer
-from utils import get_config
+from utils import get_config, dt_to_str
 from sys_data_gen import SystemDataGenerator
 
 
-def produce_to_cluster(emit_producer, topic, data):
-    future = emit_producer.send(topic, value=data)
+def produce_to_cluster(emit_producer, topic, data, system):
+    # time_now = datetime.now()
+    # time_utc = int(mktime(time_now.timetuple())*1000)
+    future = emit_producer.send(topic, value=data, key=system.encode('utf-8'))#, timestamp_ms=time_utc)
     result = future.get(timeout=60)
     return result
 
@@ -29,9 +32,8 @@ if __name__ == "__main__":
     while True:
         # generate records for all systems
         print(f'Creating records...')
-        records = []
         for system in system_list:
-            records.append(system.generate_record())
-        status = produce_to_cluster(producer, 'testing', data=records)
+            record = system.generate_record()
+            status = produce_to_cluster(producer, 'sys_data', data=record, system=system.name)
         print('send status: ', status)
         sleep(30)
