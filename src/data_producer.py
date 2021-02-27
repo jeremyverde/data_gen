@@ -20,13 +20,13 @@ if __name__ == "__main__":
                             dumps(x).encode('utf-8'))
 
     system_list = []
-    cfg = get_config(config_path='/apps/data/python-producer/data_gen/config')
+    cfg = get_config(config_path='/apps/data/data_gen/config')
     # Create all systems from config
     # and initiate metrics for each
     print('Creating systems...')
     for sys in cfg:
         curr_sys = SystemDataGenerator(sys)
-        curr_sys.set_metrics_from_config(config_path='/apps/data/python-producer/data_gen/config')
+        curr_sys.set_metrics_from_config(config_path='/apps/data/data_gen/config')
         system_list.append(curr_sys)
     
     while True:
@@ -36,4 +36,4 @@ if __name__ == "__main__":
             record = system.generate_record()
             status = produce_to_cluster(producer, 'sys_data', data=record, system=system.name)
         print('send status: ', status)
-        sleep(30)
+        sleep(10)
