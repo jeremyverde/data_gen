@@ -3,6 +3,7 @@ from random import uniform
 from datetime import datetime
 from time import mktime
 from utils import get_config, dt_to_str
+from numpy.random import normal
 
 
 class SystemDataGenerator:
@@ -21,14 +22,17 @@ class SystemDataGenerator:
         self.set_metrics(metric_list)
 
     def generate_metric_value(self, metric):
-        # TODO: use better generation, normal dist maybe
         value = uniform(metric.min_val, metric.max_val)
         return {metric.name: value}
+
+    def generate_metric_value_normal(self, metric):
+        value = normal(metric.mean, metric.sd, 1)
+        return {metric.name: value[0]}
 
     def generate_all_metrics(self):
         curr_metric_values = {}
         for metric in self.metrics:
-            curr_metric_values.update(self.generate_metric_value(metric))
+            curr_metric_values.update(self.generate_metric_value_normal(metric))
 
         return curr_metric_values
 

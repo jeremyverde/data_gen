@@ -4,7 +4,7 @@ from anomaly import Anomaly
 
 
 def check_anomaly(metric):
-        if metric > 50:
+        if metric > 20:
             return True
         return False
 

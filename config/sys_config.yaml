@@ -2,16 +2,37 @@ test_00: &SysDefault
   metrics:
     [{name: 'cpu_busy',
       min_val: 0,
-      max_val: 100},
+      max_val: 10,
+      mean: 10,
+      sd: 3},
      {name: 'mem_free',
       min_val: 0,
-      max_val: 1000},
+      max_val: 1000,
+      mean: 700,
+      sd: 100},
      {name: 'disk_free',
       min_val: 0,
-      max_val: 10000}]
+      max_val: 10000,
+      mean: 7000,
+      sd: 300}]
 
 test_01:
   <<: *SysDefault
 
 test_02:
-  <<: *SysDefault
+  metrics:
+    [{name: 'cpu_busy',
+      min_val: 0,
+      max_val: 10,
+      mean: 10,
+      sd: 3},
+     {name: 'mem_free',
+      min_val: 0,
+      max_val: 1000,
+      mean: 700,
+      sd: 100},
+     {name: 'disk_free',
+      min_val: 0,
+      max_val: 10000,
+      mean: 7000,
+      sd: 300}]
