@@ -19,6 +19,10 @@ class DataConsumer:
             data = self.bytes_to_json(value_b)
             yield data
 
+    def close(self):
+        self.consumer.close()
+
+
 if __name__ == "__main__":
     consumer = DataConsumer()
     for anom in consumer.consume():

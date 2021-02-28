@@ -1,3 +1,4 @@
 PyYAML==5.4.1
 kafka-python>=2.0.0
 numpy==1.19.5
+scikit-learn>=0.24.0
