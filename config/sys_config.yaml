@@ -2,7 +2,7 @@ test_00: &SysDefault
   metrics:
     [{name: 'cpu_busy',
       min_val: 0,
-      max_val: 10,
+      max_val: 100,
       mean: 10,
       sd: 3},
      {name: 'mem_free',
@@ -23,8 +23,8 @@ test_02:
   metrics:
     [{name: 'cpu_busy',
       min_val: 0,
-      max_val: 10,
-      mean: 10,
+      max_val: 100,
+      mean: 20,
       sd: 3},
      {name: 'mem_free',
       min_val: 0,
